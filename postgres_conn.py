@@ -35,6 +35,15 @@ class Postgres(object):
 		except psycopg2.Error as e:
 			print e.pgerror
 
+	def getAllUserSwearCounts(self, users):
+		lookup_query = "select username, swearcount from swearjar"
+		try:
+			self.cur.execute(find_query, ())
+			all_user_swearcounts = self.cur.fetchall()
+			return all_user_swearcounts
+		except psycopg2.Error as e:
+			print e.pgerror
+
 	def addNewUser(self, user_info):
 		add_user_query = "insert into swearjar VALUES(%s, %s, %s, %s)"
 		try:

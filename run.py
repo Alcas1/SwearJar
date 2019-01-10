@@ -1,5 +1,10 @@
 from app import Bot
+from slackclientswears import SlackClientSwears
 from os import environ
 
-swear_bot = Bot(environ['API_TOKEN'])
+
+client = SlackClientSwears(environ['API_TOKEN'])
+swear_bot = Bot(client)
 swear_bot.run()
+
+#randomest id "GDTAPGV1T"

@@ -15,7 +15,7 @@ class Swearjar(object):
 		self.userSwearCountCache = {}
 
 	def hasSwear(self, text):
-		return set(text.split()) & self.swearlist
+		return set(x.lower() for x in text.split()) & self.swearlist
 
 	def getSwearList(self):
 		return self.swears
@@ -33,3 +33,14 @@ class Swearjar(object):
 	def getMoneyOwed(self, user):
 		money = self.checkSwearJar(user) * self.defaultMultiplier
 		return math.ceil(money * 100) / 100
+
+	def addNewUser(self, userinfo):
+		return self.storage.addNewUser(userinfo)
+
+	def getUserData(self, user):
+		return self.storage.getUserData(user)
+
+	def getAllBalances(self, users):
+		swearCounts = self.storage.getAllUserSwearCounts
+
+		return 

@@ -20,7 +20,7 @@ class Postgres(object):
 			self.cur.execute(update_swear_query, (finalcount, user))
 			self.conn.commit()
 		except psycopg2.Error as e:
-			print e.pgerror
+			print(e.pgerror)
 		return finalcount
 
 	def getSwearCount(self, user):
@@ -33,7 +33,7 @@ class Postgres(object):
 			user_data = self.cur.fetchone()
 			return user_data
 		except psycopg2.Error as e:
-			print e.pgerror
+			print(e.pgerror)
 
 	def getAllUserSwearCounts(self):
 		lookup_query = "select userid, username, swearcount from swearjar"
@@ -42,7 +42,7 @@ class Postgres(object):
 			all_user_swearcounts = self.cur.fetchall()
 			return all_user_swearcounts
 		except psycopg2.Error as e:
-			print e.pgerror
+			print(e.pgerror)
 
 	def addNewUser(self, user_info):
 		add_user_query = "insert into swearjar VALUES(%s, %s, %s, %s)"
@@ -54,4 +54,4 @@ class Postgres(object):
 				0))
 			self.conn.commit()
 		except psycopg2.Error as e:
-			print e.pgerror
+			print(e.pgerror)

@@ -1,7 +1,6 @@
 from swearlist import swears
 from postgres_conn import Postgres
-import urlparse 
-import redis
+from profanity_check import predict, predict_prob
 import os
 import math
 
@@ -15,6 +14,7 @@ class Swearjar(object):
 		self.userSwearCountCache = {}
 
 	def hasSwear(self, text):
+		#return predict(text)
 		return set(x.lower() for x in text.split()) & self.swearlist
 
 	def getSwearList(self):

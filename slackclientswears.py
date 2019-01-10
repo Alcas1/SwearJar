@@ -13,12 +13,12 @@ class SlackClientSwears(object):
 			try:
 				self.userid = self.client.api_call("auth.test")['user_id']
 				self.username = self.client.api_call("auth.test")['user']
-				print "Connected: " + self.username + ": " + self.userid
+				print("Connected: " + self.username + ": " + self.userid)
 
 			except Exception as e:
-				print e
+				print(e)
 		else:
-			print "Connection failed."
+			print("Connection failed.")
 
 	def getLatestMessage(self):
 		return self.client.rtm_read()

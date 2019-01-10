@@ -14,7 +14,7 @@ class MessageProcessor(object):
 					body = msg.get('text')
 					body_words = body.split()
 					if self.client.checkMention(body_words[0]):
-						if len(body_words) > 1:
+						if(len(body_words) > 1):
 							command_func = self.checkForCommands(body_words[1])
 							command_func(body, msg["user"], channelid)
 						else: 

@@ -13,17 +13,13 @@ class Bot(object):
 		self.channel_id = "GDTAPGV1T" 
 		self.swearjar = Swearjar()
 
-		#randomer id = C95KR63FU
 	def run(self):
 		if self.client.rtm_connect():
 			try:
 				self.user_id = self.client.api_call("auth.test")['user_id']
 				self.username = self.client.api_call("auth.test")['user']
 				print self.username + ": " + self.user_id
-				#print self.client.api_call("groups.list")
-				#self.channel_id = self.client.api_call("channels.list")["channels"][]
-				#print(self.channel_id)
-				#print self.client.api_call("groups.info", channel=self.channel_id)
+
 			except Exception as e:
 				print e
 			while True:
@@ -37,6 +33,7 @@ class Bot(object):
 			if msg['type'] == "message":
 				if 'text' in msg:
 					body = msg.get('text')
+					print body
 					if(self.swearjar.hasSwear(body)):
 						swears = 0
 						userid = msg["user"]

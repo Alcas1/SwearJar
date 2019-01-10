@@ -15,7 +15,7 @@ class Swearjar(object):
 		self.userSwearCountCache = {}
 
 	def hasSwear(self, text):
-		return any(swear in text for swear in self.swearlist)
+		return set(text.split()) & self.swearlist
 
 	def getSwearList(self):
 		return self.swears

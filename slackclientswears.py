@@ -29,9 +29,12 @@ class SlackClientSwears(object):
 	def isBotUser(self, userid):
 		return userid == self.userid
 
-	def postBotMessage(self, message):
+	def checkMention(self, message):
+		return self.userid in message
+
+	def postBotMessage(self, message, channelid):
 		self.client.api_call(
 			"chat.postMessage",
 			as_user="true",
-			channel=msg['channel'],
+			channel=channelid,
 			text=message)

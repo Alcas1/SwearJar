@@ -35,10 +35,10 @@ class Postgres(object):
 		except psycopg2.Error as e:
 			print e.pgerror
 
-	def getAllUserSwearCounts(self, users):
-		lookup_query = "select username, swearcount from swearjar"
+	def getAllUserSwearCounts(self):
+		lookup_query = "select userid, username, swearcount from swearjar"
 		try:
-			self.cur.execute(find_query, ())
+			self.cur.execute(lookup_query, ())
 			all_user_swearcounts = self.cur.fetchall()
 			return all_user_swearcounts
 		except psycopg2.Error as e:

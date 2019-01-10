@@ -10,11 +10,37 @@ class MessageProcessor(object):
 		for msg in messages:
 			if msg['type'] == "message":
 				if 'text' in msg:
+					channelid = msg["channel"]
 					body = msg.get('text')
-					if(self.swearjar.hasSwear(body)):
-						self.process_swear_message(body, msg["user"])
+					body_words = body.split()
+					if self.client.checkMention(body_words[0]):
+						if len(body_words) > 1:
+							command_func = self.checkForCommands(body_words[1])
+							command_func(body, msg["user"], channelid)
+						else: 
+							self.client.postBotMessage("Remember, this is a Christian channel. So NO SWEARING.", channelid)
+					elif self.swearjar.hasSwear(body):
+						self.process_swear_message(body, msg["user"], channelid)
 						
-	def process_swear_message(self, swear_message, userid):
+	def checkForCommands(self, command):
+		run_commands = {
+			"balance":self.process_balance,
+			"balances":self.process_balance
+		}
+		return run_commands.get(command, self.unknown_command)
+
+	def process_balance(self, command, userid, channelid):
+		balances = self.swearjar.getAllBalances()
+		self.client.postBotMessage(balances, channelid)
+
+	def unknown_command(self, command, userid, channelid):
+		if self.swearjar.hasSwear(command):
+			self.process_swear_message(command, userid, channelid)
+		else:
+			self.client.postBotMessage("Remember, this is a Christian channel. So NO SWEARING.", channelid)
+
+
+	def process_swear_message(self, swear_message, userid, channelid):
 		swears = 0
 		user_data = self.swearjar.getUserData(userid)
 		userinfo = self.client.getUserInfo(userid)
@@ -24,11 +50,11 @@ class MessageProcessor(object):
 
 		swears = self.swearjar.addToSwearJar(userid)
 
-		if self.client.isBotUser(userid):
+		if not self.client.isBotUser(userid):
 			message = ("sorry "
 				+ userinfo["name"]
 				+ " this is a christian channel, so no swearing. "
 				+ userinfo["name"]
 				+ " now owes: $"
 				+ ("%.2f" % self.swearjar.getMoneyOwed(userid)))
-			self.client.postBotMessage(message)
+			self.client.postBotMessage(message, channelid)

@@ -13,14 +13,18 @@ class MessageProcessor(object):
 					channelid = msg["channel"]
 					body = msg.get('text')
 					body_words = body.split()
+					userid = msg.get("user")
+					if(userid is None):
+						return
+
 					if self.client.checkMention(body_words[0]):
 						if(len(body_words) > 1):
 							command_func = self.checkForCommands(body_words[1])
-							command_func(body, msg["user"], channelid)
+							command_func(body, userid, channelid)
 						else: 
 							self.client.postBotMessage("Remember, this is a Christian channel. So NO SWEARING.", channelid)
 					elif self.swearjar.hasSwear(body):
-						self.process_swear_message(body, msg["user"], channelid)
+						self.process_swear_message(body, userid, channelid)
 						
 	def checkForCommands(self, command):
 		run_commands = {

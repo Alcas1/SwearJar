@@ -14,8 +14,11 @@ class Swearjar(object):
 		self.userSwearCountCache = {}
 
 	def hasSwear(self, text):
-		#return predict(text)
-		return set(x.lower() for x in text.split()) & self.swearlist
+		result = predict_prob([text])
+		print(result)
+		return result > 0
+
+		#return set(x.lower() for x in text.split()) & self.swearlist
 
 	def getSwearList(self):
 		return self.swears

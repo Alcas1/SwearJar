@@ -4,7 +4,7 @@ import psycopg2
 # Table name: Jar
 # string userid [PRIMARY KEY], string username, string realname, int amount
 
-DATABASE_URL = os.environ['DATABASE_URL']
+DATABASE_URL = os.environ['HEROKU_POSTGRESQL_JADE_URL']
 
 class Postgres(object):
 

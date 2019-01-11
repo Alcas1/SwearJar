@@ -15,7 +15,7 @@ class Bot(object):
 		self.client.connect()
 		while True:
 			self.processor.process_messages(self.client.getLatestMessage())
-			time.sleep(0.10)
+			time.sleep(0)
 
 	
 

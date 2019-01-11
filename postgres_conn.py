@@ -1,5 +1,6 @@
 import os
 import psycopg2
+from threading import Thread
 
 # Table name: Jar
 # string userid [PRIMARY KEY], string username, string realname, int amount
@@ -11,7 +12,8 @@ class Postgres(object):
 	def __init__(self):
 		self.conn = psycopg2.connect(DATABASE_URL)
 		self.cur = self.conn.cursor()
-
+		self.update_interval = 15
+		
 	def incrementSwearCount(self, user, swearIncrement):
 		swearcount = self.getSwearCount(user)
 		finalcount = swearcount + swearIncrement

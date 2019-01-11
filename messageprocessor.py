@@ -8,8 +8,8 @@ class MessageProcessor(object):
 
 	def process_messages(self, messages):
 		for msg in messages:
-			if msg['type'] == "message":
-				if 'text' in msg:
+			if 'text' in msg and 'type' in msg:
+				if msg['type'] == "message":
 					channelid = msg["channel"]
 					body = msg.get('text')
 					body_words = body.split()

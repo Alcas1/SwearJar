@@ -1,5 +1,5 @@
 from swearlist import swears
-from postgres_conn import Postgres
+from batch_postgres import BatchPostgres
 from profanity_check import predict, predict_prob
 import os
 import math
@@ -10,7 +10,7 @@ class Swearjar(object):
 	def __init__(self):
 		self.swearlist = swears
 		self.defaultMultiplier = 0.25
-		self.storage = Postgres()
+		self.storage = BatchPostgres()
 		self.userSwearCountCache = {}
 
 	def hasSwear(self, text):

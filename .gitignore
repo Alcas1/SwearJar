@@ -16,3 +16,9 @@ venv.bak/
 
 *.sql
 *.pgsql
+
+# Junk
+
+*~
+.DS_Store
+*.bak

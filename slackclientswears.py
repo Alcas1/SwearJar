@@ -3,13 +3,28 @@ import threading
 
 message_batch = {}
 
+#allow 10 seconds of rolling bursting
 def batchSend(self):
 	global message_batch
 
-	for channelid in message_batch:
-		self.client.rtm_send_message(channelid, message_batch[channelid])
+	if message_batch:
+		for channelid in message_batch:
+			self.client.rtm_send_message(channelid, message_batch[channelid])
+		self.time += (1 / self.currentInterval)
+	if(self.currentInterval == self.burstInterval):
+		self.time -= (1 / self.bufferInterval)
+	else:
+		self.time -= (1 / self.burstInterval)
+
+	if(self.time<0):
+		self.time = 0
+
+	if self.time > (15 / self.burstInterval):
+		self.currentInterval = self.bufferInterval
+	else:
+		self.currentInterval = self.burstInterval
 	message_batch.clear()
-	threading.Timer(self.bufferInterval, batchSend, [self]).start()
+	threading.Timer(self.currentInterval, batchSend, [self]).start()
 
 
 class SlackClientSwears(object):
@@ -19,7 +34,10 @@ class SlackClientSwears(object):
 		self.userid = {}
 		self.username = {}
 		self.bufferInterval = 1
-		threading.Timer(self.bufferInterval, batchSend, [self]).start()
+		self.burstInterval = .25
+		self.currentInterval = .25
+		self.time = 0
+		threading.Timer(self.currentInterval, batchSend, [self]).start()
 
 
 	def connect(self):

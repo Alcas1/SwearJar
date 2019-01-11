@@ -14,8 +14,11 @@ class Bot(object):
 	def run(self):
 		self.client.connect()
 		while True:
-			self.processor.process_messages(self.client.getLatestMessage())
-			time.sleep(0.10)
+			try:
+				self.processor.process_messages(self.client.getLatestMessage())
+				time.sleep(0)
+			except Exception as e:
+				print(e)
 
 	
 

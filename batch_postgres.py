@@ -62,7 +62,6 @@ class BatchPostgres(object):
 		swearcount = self.getSwearCount(user)
 		finalcount = swearcount + swearIncrement
 		update_batch[user] = finalcount
-		print(swearcount, swearIncrement)
 		return finalcount
 
 	def getSwearCount(self, user):

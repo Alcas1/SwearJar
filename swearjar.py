@@ -15,7 +15,6 @@ class Swearjar(object):
 
 	def hasSwear(self, text):
 		result = predict_prob([text])
-		print(result)
 		return result > 0
 
 		#return set(x.lower() for x in text.split()) & self.swearlist

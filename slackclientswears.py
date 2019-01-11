@@ -1,16 +1,14 @@
 from slackclient import SlackClient
 import threading
 
-message_batch = str()
-channel_id = ""
+message_batch = {}
 
 def batchSend(self):
 	global message_batch
-	global channel_id
 
-	if len(message_batch) > 0:
-		self.client.rtm_send_message(channel_id, message_batch)
-		message_batch = ""
+	for channelid in message_batch:
+		self.client.rtm_send_message(channelid, message_batch[channelid])
+	message_batch.clear()
 	threading.Timer(self.bufferInterval, batchSend, [self]).start()
 
 
@@ -49,9 +47,7 @@ class SlackClientSwears(object):
 		return self.userid in message
 
 	def postBotMessage(self, message, channelid):
-		global message_batch
-		global channel_id
-
-		message_batch = message_batch + ("\n" + message)
-		channel_id = channelid
+		if not channelid in message_batch:
+			 message_batch[channelid] = ""
+		message_batch[channelid] = message_batch[channelid] + ("\n" + message)
 

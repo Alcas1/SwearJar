@@ -83,10 +83,23 @@ class BatchPostgres(object):
 			print(e.pgerror)
 
 	def getAllUserSwearCounts(self):
+		global update_batch
+		global insert_batch
+
 		lookup_query = "select userid, username, swearcount from swearjar"
 		try:
-			self.cur.execute(lookup_query, ())
+			self.cur.execute(lookup_query)
 			all_user_swearcounts = self.cur.fetchall()
+			print("insert")
+			for userid in insert_batch:
+				print(userid)
+				tup = tuple(list(userid).append(insert_batch[userid]).append(0))
+				all_user_swearcounts.append(tup)
+			print("inserted")
+			for row in all_user_swearcounts:
+				if row[0] in update_batch:
+					updated_row = tuple(row[:-1]) + update_batch[row[0]]
+			print("modified")
 			return all_user_swearcounts
 		except psycopg2.Error as e:
 			print(e.pgerror)

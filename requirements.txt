@@ -8,7 +8,6 @@ DAWG-Python==0.7.2
 docopt==0.6.2
 enum34==1.1.6
 hunspell==0.5.5
-hunspell-serializable==1.0.0
 idna==2.7
 jsonschema==2.6.0
 murmurhash==1.0.2
@@ -20,7 +19,6 @@ preshed==2.0.1
 profanity-check==1.0.2
 psycopg2==2.7.6.1
 psycopg2-binary==2.7.5
-pyffs==1.0
 pymorphy2==0.8
 pymorphy2-dicts-ru==2.4.404381.4453942
 python-binary-memcached==0.28.0
@@ -43,3 +41,5 @@ virtualenv==16.1.0
 virtualenv-clone==0.4.0
 wasabi==0.2.1
 websocket-client==0.53.0
+git+https://github.com/rominf/hunspell_serializable@49c00fabf94cacf9e6a23a0cd666aac10cb1d491#egg=hunspell_serializable
+git+https://github.com/rominf/pyffs@6c805fbfd7771727138b169b32484b53c0b0fad1#egg=pyffs

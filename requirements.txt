@@ -41,4 +41,5 @@ virtualenv==16.1.0
 virtualenv-clone==0.4.0
 wasabi==0.2.1
 websocket-client==0.53.0
-git+https://github.com/rominf/pyffs@6c805fbfd7771727138b169b32484b53c0b0fad1#egg=pyffs
+git+https://github.com/rominf/hunspell_serializable#egg=hunspell_serializable
+git+https://github.com/rominf/pyffs#egg=pyffs

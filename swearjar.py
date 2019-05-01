@@ -1,6 +1,7 @@
 from swearlist import swears
 from batch_postgres import BatchPostgres
-from profanity_check import predict, predict_prob
+import spacy
+from profanity_filter import ProfanityFilter, AVAILABLE_ANALYSES
 import os
 import math
 
@@ -12,11 +13,22 @@ class Swearjar(object):
 		self.defaultMultiplier = 0.25
 		self.storage = BatchPostgres()
 		self.userSwearCountCache = {}
+		self.nlp = spacy.load('en')
+		filter = ProfanityFilter(nlps={'en': self.nlp})
+		self.nlp.add_pipe(filter.spacy_component, last=True)
+		print(', '.join(sorted(analysis.value for analysis in AVAILABLE_ANALYSES)))
+
 
 	def hasSwear(self, text):
-		result = predict_prob([text])
-		return result > 0
+		doc = self.nlp(text)
+		# for token in doc:
+		# 	print(f'{token}:'
+		# 		f'censored={token._.censored}, '
+		# 		f'is_profane={token._.is_profane}, '
+		# 		f'original_profane_word={token._.original_profane_word}'
+		# 	)
 
+		return doc._.is_profane
 		#return set(x.lower() for x in text.split()) & self.swearlist
 
 	def getSwearList(self):

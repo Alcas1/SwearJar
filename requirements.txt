@@ -12,6 +12,7 @@ pathlib==1.0.1
 pipenv==2018.11.26
 plac==0.9.6
 preshed==2.0.1
+profanity-check==1.0.2
 psycopg2==2.7.6.1
 psycopg2-binary==2.7.5
 python-Levenshtein==0.12.0

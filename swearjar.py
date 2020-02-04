@@ -12,7 +12,6 @@ class Swearjar(object):
 		self.defaultMultiplier = 0.25
 		self.storage = BatchPostgres()
 		self.userSwearCountCache = {}
-		self.filter = ProfanityFilter()
 
 	def hasSwear(self, text):
 		result = predict_prob([text])

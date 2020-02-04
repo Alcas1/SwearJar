@@ -1,6 +1,6 @@
 from swearlist import swears
 from batch_postgres import BatchPostgres
-from profanityfilter import ProfanityFilter
+from profanity_check import predict, predict_prob
 import os
 import math
 
@@ -15,14 +15,9 @@ class Swearjar(object):
 		self.filter = ProfanityFilter()
 
 	def hasSwear(self, text):
-		return self.filter.is_profane(text)
-		# for token in doc:
-		# 	print(f'{token}:'
-		# 		f'censored={token._.censored}, '
-		# 		f'is_profane={token._.is_profane}, '
-		# 		f'original_profane_word={token._.original_profane_word}'
-		# 	)
-
+		result = predict_prob([text])
+		return result > 0.5
+		
 		#return set(x.lower() for x in text.split()) & self.swearlist
 
 	def getSwearList(self):

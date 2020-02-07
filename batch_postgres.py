@@ -89,6 +89,7 @@ class BatchPostgres(object):
 			all_user_swearcounts = self.cur.fetchall()
 			return all_user_swearcounts
 		except psycopg2.Error as e:
+			print("can't find users")
 			print(e.pgerror)
 
 	def addNewUser(self, user_info):

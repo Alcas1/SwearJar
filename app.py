@@ -19,6 +19,7 @@ class Bot(object):
 				time.sleep(0)
 			except Exception as e:
 				print(e)
+				self.client.connect()
 
 	
 

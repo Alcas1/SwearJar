@@ -90,7 +90,7 @@ class BatchPostgres(object):
 			return all_user_swearcounts
 		except psycopg2.Error as e:
 			print("can't find users")
-			print(e.pgerror)
+			print(e)
 
 	def addNewUser(self, user_info):
 		insert_batch[user_info["id"]] = (user_info["name"], user_info["real_name"])

@@ -12,7 +12,7 @@ jsonschema==2.6.0
 murmurhash==1.0.2
 numpy==1.15.4
 pathlib==1.0.1
-pipenv==2018.11.26
+pipenv==2022.1.8
 plac==0.9.6
 preshed==2.0.1
 profanity-check==1.0.2

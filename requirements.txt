@@ -1,5 +1,5 @@
 blis==0.2.4
-certifi==2018.10.15
+certifi==2022.12.7
 chardet==3.0.4
 cymem==2.0.2
 DAWG-Python==0.7.2
